@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpyReport — Reporte de Ejemplo</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Sora', sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    min-height: 100vh;
+  }
+
+  .top-bar {
+    background: #0d1117;
+    border-bottom: 1px solid #21262d;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+
+  .logo {
+    font-size: 18px;
+    font-weight: 700;
+    color: #e6edf3;
+    letter-spacing: -0.5px;
+  }
+
+  .logo span { color: #3fb950; }
+
+  .badge {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: rgba(63, 185, 80, 0.15);
+    color: #3fb950;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(63, 185, 80, 0.3);
+  }
+
+  .hero {
+    text-align: center;
+    padding: 60px 24px 40px;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #3fb950;
+    background: rgba(63, 185, 80, 0.1);
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(63, 185, 80, 0.2);
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+
+  .hero p {
+    font-size: 14px;
+    color: #8b949e;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: #3fb950;
+    color: #0d1117;
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 12px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: all 0.2s;
+  }
+
+  .cta-btn:hover {
+    background: #56d364;
+    transform: translateY(-1px);
+  }
+
+  .report-wrapper {
+    max-width: 640px;
+    margin: 0 auto 60px;
+    padding: 0 16px;
+  }
+
+  .report {
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  /* Header */
+  .r-header {
+    background: #ffffff;
+    padding: 24px 32px 18px;
+    border-bottom: 2px solid #f0f2f7;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .r-logo {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1f2e;
+    letter-spacing: -0.3px;
+  }
+
+  .r-logo span { color: #6b9e8a; }
+
+  .r-week {
+    font-size: 11px;
+    color: #a0a8b8;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  /* Resumen */
+  .r-summary {
+    background: #f7faf9;
+    padding: 20px 32px;
+    border-bottom: 1px solid #e8edf5;
+  }
+
+  .r-section-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #6b9e8a;
+    background: #e4f0ec;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+
+  .r-summary p {
+    font-size: 13px;
+    line-height: 1.8;
+    color: #3d4560;
+  }
+
+  /* Stats */
+  .r-stats {
+    display: flex;
+    border-bottom: 1px solid #e8edf5;
+  }
+
+  .r-stat {
+    flex: 1;
+    padding: 16px 12px;
+    text-align: center;
+    border-right: 1px solid #e8edf5;
+  }
+
+  .r-stat:last-child { border-right: none; }
+
+  .r-stat-num {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1f2e;
+    margin-bottom: 3px;
+  }
+
+  .r-stat-label {
+    font-size: 9px;
+    color: #a0a8b8;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  /* Productos */
+  .r-products {
+    padding: 22px 32px;
+    border-bottom: 1px solid #e8edf5;
+  }
+
+  .r-products-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1f2e;
+    margin-bottom: 16px;
+  }
+
+  .r-competitor {
+    margin-bottom: 20px;
+  }
+
+  .r-competitor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .r-competitor-name {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+  }
+
+  .r-competitor-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 20px;
+  }
+
+  .c1-color { color: #6b9e8a; }
+  .c1-bg { background: #e4f0ec; color: #6b9e8a; }
+  .c2-color { color: #7a8fd4; }
+  .c2-bg { background: #e8ecf8; color: #7a8fd4; }
+  .c3-color { color: #d4a06a; }
+  .c3-bg { background: #f5ece0; color: #d4a06a; }
+
+  .r-product {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f2f7;
+  }
+
+  .r-product:last-child { border-bottom: none; }
+
+  .r-product-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: #c8ccd8;
+    width: 22px;
+    flex-shrink: 0;
+  }
+
+  .r-product-info {
+    flex: 1;
+    padding: 0 10px;
+  }
+
+  .r-product-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1a1f2e;
+    margin-bottom: 2px;
+    line-height: 1.3;
+  }
+
+  .r-product-meta {
+    font-size: 10px;
+    color: #a0a8b8;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .dot-green { background: #6b9e8a; }
+  .dot-red { background: #e57373; }
+
+  .r-product-price {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1f2e;
+    white-space: nowrap;
+  }
+
+  /* Comparativa */
+  .r-compare {
+    padding: 22px 32px;
+    border-bottom: 1px solid #e8edf5;
+  }
+
+  .r-compare-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1f2e;
+    margin-bottom: 14px;
+  }
+
+  .r-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .r-bar-label {
+    font-size: 10px;
+    color: #a0a8b8;
+    width: 90px;
+    flex-shrink: 0;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .r-bar-track {
+    flex: 1;
+    background: #f0f2f7;
+    border-radius: 6px;
+    height: 8px;
+  }
+
+  .r-bar-fill {
+    height: 8px;
+    border-radius: 6px;
+  }
+
+  .r-bar-price {
+    font-size: 11px;
+    font-weight: 700;
+    color: #3d4560;
+    width: 80px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .r-compare-note {
+    font-size: 10px;
+    color: #a0a8b8;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* Tráfico */
+  .r-traffic {
+    padding: 22px 32px;
+    border-bottom: 1px solid #e8edf5;
+  }
+
+  .r-traffic-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1f2e;
+    margin-bottom: 14px;
+  }
+
+  .r-traffic-card {
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+
+  .tc1 { background: #f0f8f5; }
+  .tc2 { background: #f0f2fc; }
+  .tc3 { background: #fdf6ee; }
+
+  .r-traffic-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: #1a1f2e;
+    margin-bottom: 10px;
+  }
+
+  .r-traffic-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .r-traffic-metric {
+    text-align: center;
+    background: rgba(255,255,255,0.7);
+    border-radius: 8px;
+    padding: 8px 6px;
+  }
+
+  .r-traffic-num {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1f2e;
+    line-height: 1;
+  }
+
+  .r-traffic-label {
+    font-size: 9px;
+    color: #a0a8b8;
+    margin-top: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .r-tag {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-right: 5px;
+    margin-top: 3px;
+    background: rgba(255,255,255,0.7);
+    color: #5a6080;
+  }
+
+  /* Acciones */
+  .r-actions {
+    padding: 22px 32px;
+  }
+
+  .r-actions-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1f2e;
+    margin-bottom: 14px;
+  }
+
+  .r-action {
+    display: flex;
+    gap: 14px;
+    padding: 13px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    align-items: flex-start;
+  }
+
+  .r-action:last-child { margin-bottom: 0; }
+
+  .a1 { background: #f0f8f5; border-left: 3px solid #6b9e8a; }
+  .a2 { background: #f0f2fc; border-left: 3px solid #7a8fd4; }
+  .a3 { background: #fdf6ee; border-left: 3px solid #d4a06a; }
+  .a4 { background: #fdf0f8; border-left: 3px solid #c47ab4; }
+  .a5 { background: #f5f0fc; border-left: 3px solid #9a7ad4; }
+
+  .r-action-num {
+    font-size: 18px;
+    font-weight: 700;
+    color: rgba(0,0,0,0.1);
+    line-height: 1.3;
+    width: 20px;
+    flex-shrink: 0;
+  }
+
+  .r-action-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1a1f2e;
+    margin-bottom: 4px;
+  }
+
+  .r-action-desc {
+    font-size: 11px;
+    color: #5a6080;
+    line-height: 1.65;
+  }
+
+  /* Footer reporte */
+  .r-footer {
+    background: #1a1f2e;
+    padding: 16px 32px;
+    text-align: center;
+  }
+
+  .r-footer p {
+    font-size: 10px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.8px;
+  }
+
+  /* CTA bottom */
+  .bottom-cta {
+    max-width: 640px;
+    margin: 0 auto 80px;
+    padding: 0 16px;
+    text-align: center;
+  }
+
+  .bottom-cta h2 {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+
+  .bottom-cta p {
+    font-size: 13px;
+    color: #8b949e;
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+
+  .blurred {
+    filter: blur(4px);
+    user-select: none;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="logo">Spy<span>Report</span></div>
+  <div class="badge">Reporte de Ejemplo</div>
+</div>
+
+<div class="hero">
+  <div class="hero-tag">📊 Así funciona SpyReport</div>
+  <h1>Este reporte llegó automáticamente el lunes a las 8am</h1>
+  <p>Sin hacer nada. SpyReport scrapeó los competidores, analizó los datos con IA y generó este reporte completo. Los nombres de las tiendas están ocultos por privacidad.</p>
+  <a href="https://spyreport-web.vercel.app" class="cta-btn">Quiero mi reporte gratis →</a>
+</div>
+
+<div class="report-wrapper">
+  <div class="report">
+
+    <!-- Header -->
+    <div class="r-header">
+      <div class="r-logo">Spy<span>Report</span></div>
+      <div class="r-week">Semana 24 · Junio 2026</div>
+    </div>
+
+    <!-- Resumen -->
+    <div class="r-summary">
+      <div class="r-section-tag">📊 Resumen ejecutivo</div>
+      <p>El mercado de perfumería online muestra una clara segmentación: el Competidor A lidera en botellas completas con alto ticket promedio, mientras que el Competidor B ofrece decants de nicho a precios muy competitivos. El Competidor C tiene el menor tráfico pero la tasa de rebote más baja del sector. La oportunidad inmediata está en el segmento de decants árabes, donde hay una diferencia de precio de hasta 46% entre competidores.</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="r-stats">
+      <div class="r-stat">
+        <div class="r-stat-num">3</div>
+        <div class="r-stat-label">Competidores</div>
+      </div>
+      <div class="r-stat">
+        <div class="r-stat-num">45</div>
+        <div class="r-stat-label">Productos</div>
+      </div>
+      <div class="r-stat">
+        <div class="r-stat-num">51.7k</div>
+        <div class="r-stat-label">Visitas</div>
+      </div>
+      <div class="r-stat">
+        <div class="r-stat-num">0</div>
+        <div class="r-stat-label">Movimientos</div>
+      </div>
+    </div>
+
+    <!-- Productos -->
+    <div class="r-products">
+      <div class="r-products-title">Productos más vendidos</div>
+
+      <!-- Competidor A -->
+      <div class="r-competitor">
+        <div class="r-competitor-header">
+          <div class="r-competitor-name c1-color">Competidor A</div>
+          <div class="r-competitor-badge c1-bg">24.5k/mes</div>
+        </div>
+        <div class="r-product">
+          <div class="r-product-num">#1</div>
+          <div class="r-product-info">
+            <div class="r-product-name">Armaf Club de Nuit Intense Man 105ml</div>
+            <div class="r-product-meta"><span class="dot dot-green"></span>Armaf · InStock</div>
+          </div>
+          <div class="r-product-price">$118.416</div>
+        </div>
+        <div class="r-product">
+          <div class="r-product-num">#2</div>
+          <div class="r-product-info">
+            <div class="r-product-name">Al Haramain Amber Oud Gold 120ml</div>
+            <div class="r-product-meta"><span class="dot dot-green"></span>Al Haramain · InStock</div>
+          </div>
+          <div class="r-product-price">$175.102</div>
+        </div>
+        <div class="r-product">
+          <div class="r-product-num">#3</div>
+          <div class="r-product-info">
+            <div class="r-product-name">Lattafa Khamrah 100ml</div>
+            <div class="r-product-meta"><span class="dot dot-green"></span>Lattafa · InStock</div>
+          </div>
+          <div class="r-product-price">$104.485</div>
+        </div>
+        <div class="r-product">
+          <div class="r-product-num">#4</div>
+          <div class="r-product-info">
+            <div class="r-product-name">Jean Paul Gaultier Le Male Le Parfum 125ml</div>
+            <div class="r-product-meta"><span class="dot dot-green"></span>Jean Paul Gaultier · InStock</div>
+          </div>
+          <div class="r-product-price">$244.285</div>
+        </div>
+        <div class="r-product">
+          <div class="r-product-num">#5</div>
+          <div class="r-product-info">
+            <div class="r-product-name">Afnan 9 PM 100ml</div>
+            <div class="r-product-meta"><span class="dot dot-green"></span>Afnan · InStock</div>
+          </div>
+          <div class="r-product-price">$121.444</div>
+        </div>
+      </div>
+
+      <!-- Competidor B -->
+      <div class="r-competitor">
+        <div class="r-competitor-header">
+          <div class="r-competitor-name c2-color">Competidor B</div>
+          <div class="r-competitor-badge c2-bg">24.2k/mes</div>
+        </div>
+        <div class="r-product">
+          <div class="r-product-num">#1</div>
+          <div class="r-product-info">
+            <div class="r-product-name">Amber Oud Gold Edition (Decant)</div>
+            <div class="r-product-meta"><span class="dot dot-green"></span>Al Haramain · InStock</div>
+          </div>
+          <div class="r-product-price">$8.500</div>
+        </div>
+        <div class="r-product">
+          <div class="r-product-num">#2</div>
+          <div class="r-product-info">
+            <div class="r-product-name">Xerjoff Erba Pura (Decant)</div>
+            <div class="r-product-meta"><span class="dot dot-green"></span>Xerjoff · InStock</div>
+          </div>
+          <div class="r-product-price">$28.000</div>
+        </div>
+        <div class="r-product">
+          <div class="r-product-num">#3</div>
+          <div class="r-product-info">
+            <div class="r-product-name">Parfums de Marly Layton (Decant)</div>
+            <div class="r-product-meta"><span class="dot dot-green"></span>Parfums de Marly · InStock</div>
+          </div>
+          <div class="r-product-price">$23.500</div>
+        </div>
+        <div class="r-product">
+          <div class="r-product-num">#4</div>
+          <div class="r-product-info">
+            <div class="r-product-name">Lattafa Khamrah (Decant)</div>
+            <div class="r-product-meta"><span class="dot dot-green"></span>Lattafa · InStock</div>
+          </div>
+          <div class="r-product-price">$7.000</div>
+        </div>
+        <div class="r-product">
+          <div class="r-product-num">#5</div>
+          <div class="r-product-info">
+            <div class="r-product-name">CREED Aventus (Decant)</div>
+            <div class="r-product-meta"><span class="dot dot-green"></span>CREED · InStock</div>
+          </div>
+          <div class="r-product-price">$27.500</div>
+        </div>
+      </div>
+
+      <!-- Competidor C -->
+      <div class="r-competitor">
+        <div class="r-competitor-header">
+          <div class="r-competitor-name c3-color">Competidor C</div>
+          <div class="r-competitor-badge c3-bg">3.0k/mes</div>
+        </div>
+        <div class="r-product">
+          <div class="r-product-num">#1</div>
+          <div class="r-product-info">
+            <div class="r-product-name">Armaf Club de Nuit Intense Decant</div>
+            <div class="r-product-meta"><span class="dot dot-green"></span>Armaf · InStock</div>
+          </div>
+          <div class="r-product-price">$9.360</div>
+        </div>
+        <div class="r-product">
+          <div class="r-product-num">#2</div>
+          <div class="r-product-info">
+            <div class="r-product-name">Xerjoff Erba Pura Decant</div>
+            <div class="r-product-meta"><span class="dot dot-green"></span>Xerjoff · InStock</div>
+          </div>
+          <div class="r-product-price">$41.850</div>
+        </div>
+        <div class="r-product">
+          <div class="r-product-num">#3</div>
+          <div class="r-product-info">
+            <div class="r-product-name">Lattafa Khamrah EDP Decant</div>
+            <div class="r-product-meta"><span class="dot dot-green"></span>Lattafa · InStock</div>
+          </div>
+          <div class="r-product-price">$10.260</div>
+        </div>
+        <div class="r-product">
+          <div class="r-product-num">#4</div>
+          <div class="r-product-info">
+            <div class="r-product-name">Afnan 9 PM Decant</div>
+            <div class="r-product-meta"><span class="dot dot-green"></span>Afnan · InStock</div>
+          </div>
+          <div class="r-product-price">$10.350</div>
+        </div>
+        <div class="r-product">
+          <div class="r-product-num">#5</div>
+          <div class="r-product-info">
+            <div class="r-product-name">Al Haramain Amber Oud Gold Decant</div>
+            <div class="r-product-meta"><span class="dot dot-green"></span>Al Haramain · InStock</div>
+          </div>
+          <div class="r-product-price">$12.150</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comparativa -->
+    <div class="r-compare">
+      <div class="r-compare-title">Comparativa de precios — Lattafa Khamrah (Decant)</div>
+      <div class="r-bar-row">
+        <div class="r-bar-label">Competidor B</div>
+        <div class="r-bar-track">
+          <div class="r-bar-fill" style="width: 30%; background: #6b9e8a;"></div>
+        </div>
+        <div class="r-bar-price">$7.000</div>
+      </div>
+      <div class="r-bar-row">
+        <div class="r-bar-label">Competidor C</div>
+        <div class="r-bar-track">
+          <div class="r-bar-fill" style="width: 44%; background: #d4a06a;"></div>
+        </div>
+        <div class="r-bar-price">$10.260</div>
+      </div>
+      <p class="r-compare-note">Competidor B ofrece el decant de Lattafa Khamrah un 46% más barato que Competidor C. Si vendés este producto, es una señal de alerta para revisar tu precio.</p>
+    </div>
+
+    <!-- Tráfico -->
+    <div class="r-traffic">
+      <div class="r-traffic-title">Tráfico de la competencia</div>
+
+      <div class="r-traffic-card tc1">
+        <div class="r-traffic-name">COMPETIDOR A</div>
+        <div class="r-traffic-grid">
+          <div class="r-traffic-metric">
+            <div class="r-traffic-num">24.5k</div>
+            <div class="r-traffic-label">Visitas/mes</div>
+          </div>
+          <div class="r-traffic-metric">
+            <div class="r-traffic-num">5:05</div>
+            <div class="r-traffic-label">Duración</div>
+          </div>
+          <div class="r-traffic-metric">
+            <div class="r-traffic-num">29.96%</div>
+            <div class="r-traffic-label">Rebote</div>
+          </div>
+        </div>
+        <span class="r-tag">Directo (8.5k)</span>
+        <span class="r-tag">Orgánico (7k)</span>
+      </div>
+
+      <div class="r-traffic-card tc2">
+        <div class="r-traffic-name">COMPETIDOR B</div>
+        <div class="r-traffic-grid">
+          <div class="r-traffic-metric">
+            <div class="r-traffic-num">24.2k</div>
+            <div class="r-traffic-label">Visitas/mes</div>
+          </div>
+          <div class="r-traffic-metric">
+            <div class="r-traffic-num">6:14</div>
+            <div class="r-traffic-label">Duración</div>
+          </div>
+          <div class="r-traffic-metric">
+            <div class="r-traffic-num">64.83%</div>
+            <div class="r-traffic-label">Rebote</div>
+          </div>
+        </div>
+        <span class="r-tag">Orgánico (12k)</span>
+        <span class="r-tag">Directo (9k)</span>
+      </div>
+
+      <div class="r-traffic-card tc3">
+        <div class="r-traffic-name">COMPETIDOR C</div>
+        <div class="r-traffic-grid">
+          <div class="r-traffic-metric">
+            <div class="r-traffic-num">3.0k</div>
+            <div class="r-traffic-label">Visitas/mes</div>
+          </div>
+          <div class="r-traffic-metric">
+            <div class="r-traffic-num">2:27</div>
+            <div class="r-traffic-label">Duración</div>
+          </div>
+          <div class="r-traffic-metric">
+            <div class="r-traffic-num">23.3%</div>
+            <div class="r-traffic-label">Rebote</div>
+          </div>
+        </div>
+        <span class="r-tag">Orgánico (1.5k)</span>
+        <span class="r-tag">Directo (1.1k)</span>
+      </div>
+    </div>
+
+    <!-- Acciones -->
+    <div class="r-actions">
+      <div class="r-actions-title">5 acciones para esta semana</div>
+
+      <div class="r-action a1">
+        <div class="r-action-num">1</div>
+        <div>
+          <div class="r-action-title">Revisar precio del Lattafa Khamrah Decant</div>
+          <div class="r-action-desc">Competidor B lo vende a $7.000 y Competidor C a $10.260. Si tenés este producto, hay una brecha del 46% que podés aprovechar posicionándote en el medio con mejor margen.</div>
+        </div>
+      </div>
+
+      <div class="r-action a2">
+        <div class="r-action-num">2</div>
+        <div>
+          <div class="r-action-title">Lanzar decants de Xerjoff Erba Pura</div>
+          <div class="r-action-desc">Es el #2 más vendido en Competidor B y el #2 en Competidor C. Alta demanda comprobada. Si no lo tenés en tu catálogo, es una oportunidad inmediata.</div>
+        </div>
+      </div>
+
+      <div class="r-action a3">
+        <div class="r-action-num">3</div>
+        <div>
+          <div class="r-action-title">Optimizar landing para reducir rebote</div>
+          <div class="r-action-desc">Competidor B tiene 64.83% de rebote con 24k visitas — están perdiendo clientes. Si tu sitio tiene mejor UX, podés captar ese tráfico con SEO específico.</div>
+        </div>
+      </div>
+
+      <div class="r-action a4">
+        <div class="r-action-num">4</div>
+        <div>
+          <div class="r-action-title">Campaña de Armaf Club de Nuit</div>
+          <div class="r-action-desc">Es el #1 en Competidor A (botella completa) y #1 en Competidor C (decant). Producto de alta demanda en todos los segmentos. Asegurate de tener stock y precio competitivo.</div>
+        </div>
+      </div>
+
+      <div class="r-action a5">
+        <div class="r-action-num">5</div>
+        <div>
+          <div class="r-action-title">Reforzar tráfico orgánico con palabras clave árabes</div>
+          <div class="r-action-desc">Lattafa, Armaf y Al Haramain dominan los top productos de todos los competidores. Crear contenido SEO sobre estas marcas puede traerte tráfico orgánico calificado.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer reporte -->
+    <div class="r-footer">
+      <p>© 2026 SPYREPORT · Inteligencia competitiva semanal · Hecho en Argentina 🇦🇷</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- CTA bottom -->
+<div class="bottom-cta">
+  <h2>¿Querés este reporte para tu tienda?</h2>
+  <p>Completá el formulario con tu tienda y tus competidores. El próximo lunes te llega tu primer reporte automáticamente.</p>
+  <a href="https://spyreport-web.vercel.app" class="cta-btn">Probarlo gratis →</a>
+</div>
+
+</body>
+</html>
